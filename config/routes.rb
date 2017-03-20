@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   #assignment 12
   get 'welcome/contact'
 
+  #assignment 13
+  get 'welcome/faq'
+
   root 'welcome#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
