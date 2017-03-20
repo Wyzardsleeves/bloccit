@@ -9,6 +9,10 @@ group :production do
   gem 'rails_12factor'
 end
 
+group :developent, :test do
+  gem 'rspec-rails', '~> 3.0'
+end
+
 # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'
 
