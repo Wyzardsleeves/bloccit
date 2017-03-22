@@ -5,3 +5,27 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+require 'random_data'
+
+50.times do
+  # creates new Post.
+  Post.create!(
+    # usees methods from teh class that doesn't exist yet
+    title: RandomData.random_sentence,
+    body: RandomData.random_paragraph
+  )
+end #Create post (50.times)
+
+posts = Post.all
+#calls times on an Integer
+100.times do
+  Comment.create!(
+    post: posts.sample,
+    body: RandomData.random_paragraph
+  )
+end #100.times
+
+puts "Seed finished"
+puts "#{Post.count} post created"
+puts "#{Comment.count} comments created"
