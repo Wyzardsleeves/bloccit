@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  resources :advertisements
-  resources :questions
-  resources :posts
+  #resources :advertisements
+  #resources :questions
+  resources :topics do
+    #passes resources :posts to the resources :topics
+    resources :posts, except: [:index]
+  end
 
   get 'about' => 'welcome#about'
 

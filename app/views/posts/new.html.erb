@@ -10,7 +10,7 @@
      </ul>
    </div><!-- div col-md-4 -->
    <div class="col-md-8">
-     <%= form_for @post do |f| %>
+     <%= form_for [@topic, @post] do |f| %>
        <div class="form-group">
          <!-- using f.label to display title. -->
          <%= f.label :title %>
