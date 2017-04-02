@@ -68,4 +68,4 @@ class PostsController < ApplicationController
       render :show
     end
   end
-end
+end #class PostsController < ApplicationController
