@@ -1,11 +1,7 @@
-<!-- uses the topic and post local variables into the partial when rendered -->
-
 <%= form_for [topic, post] do |f| %>
   <% if post.errors.any? %>
-  <!-- if there are any validation errors this displays an alert with the nnumber of errors -->
   <div class="alert alert-danger">
-    <!-- uses plauralize method to plauralize "error -->
-    <h4><%= pluralize(post.errors.count, "error") %>,</h4>
+    <h4>There are <%= pluralize(post.errors.count, "error") %>,</h4>
     <ul>
       <% post.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -13,18 +9,15 @@
     </ul>
   </div>
   <% end %>
-  <!-- uses form_group_tag to display title errors -->
   <%= form_group_tag(post.errors[:title]) do %>
     <%= f.label :title %>
     <%= f.text_field :title, class: 'form-control', placeholder: "Enter post title" %>
   <% end %>
-  <!-- uses form_group_tag to display body errors -->
   <%= form_group_tag(post.errors[:body]) do %>
     <%= f.label :body %>
     <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter post" %>
   <% end %>
   <div class="form-group">
-    <!-- f.submit works like <input type="submit"> -->
     <%= f.submit "Save", class: 'btn btn-success' %>
   </div>
 <% end %>
