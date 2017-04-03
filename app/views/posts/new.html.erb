@@ -10,11 +10,25 @@
      </ul>
    </div><!-- div col-md-4 -->
    <div class="col-md-8">
+     <%= render partial: 'form', locals: {topic: @topic, post: @post} %>
+   </div><!-- div col-md-8 -->
+ </div><!-- div row -->
+
+<!--
+<h1>New Post</h1>
+
+ <div class="row">
+   <div class="col-md-4">
+     <p>Guidelines for posts</p>
+     <ul>
+       <li>Make sure it rhymes.</li>
+       <li>Don't use the letter "A"</li>
+       <li>The incessant use of hashtags will get you banned.</li>
+     </ul>
+   <div class="col-md-8">
      <%= form_for [@topic, @post] do |f| %>
        <div class="form-group">
-         <!-- using f.label to display title. -->
          <%= f.label :title %>
-         <!-- f.text_field method provided by FormHelper to create an input tag -->
          <%= f.text_field :title, class: 'form-control', placeholder: "Enter post title" %>
        </div>
        <div class="form-group">
@@ -22,9 +36,9 @@
          <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter post" %>
        </div>
        <div class="form-group">
-         <!-- f.submit works like <input type="submit"> -->
          <%= f.submit "Save", class: 'btn btn-success' %>
        </div>
      <% end %>
-   </div><!-- div col-md-8 -->
- </div><!-- div row -->
+   </div>
+ </div>
+-->
