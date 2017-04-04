@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   #registers an inline callback directly after the before_save
   before_save{self.email = email.downcase if email.present?}
+  before_save :format_name
 
   #uses Ruby's validates function to ensure that name is presen
   validates :name, length:{minimum: 1, maximum: 100}, presence: true
@@ -14,4 +15,14 @@ class User < ActiveRecord::Base
 
   #uses Ruby's has_secure_password to add methods
   has_secure_password
+
+  def format_name
+    if name
+      name_array = []
+      name.split.each do |name_part|
+        name_array << name_part.capitalize
+      end
+      self.name = name_array.join(" ")
+    end
+  end #def format_name
 end
