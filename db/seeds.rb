@@ -9,6 +9,15 @@
 require 'random_data'
 include RandomData
 
+#Create users
+5.times do
+  User.create!(
+    name: RandomData.random_name,
+    email: RandomData.random_email,
+    password: RandomData.random_sentence
+  )
+end
+users = User.all
 
 15.times do
   Topic.create!(
@@ -21,6 +30,7 @@ topics = Topic.all
 50.times do
   # creates new Post.
   Post.create!(
+    user: users.sample,
     # usees methods from teh class that doesn't exist yet
     topic: topics.sample,
     title: RandomData.random_sentence,
@@ -57,10 +67,19 @@ sponsored_posts = SponsoredPost.all
 end
 =end
 
+=begin
 Post.find_or_create_by(title: "A unique title", body: "A unique body")
 puts "#{Post.count}"
+=end
+
+user = User.first
+user.update_attributes!(
+  email: 'jlattimor3@gmail.com',
+  password: 'helloworld'
+)
 
 puts "Seed finished"
+puts "#{User.count} users created"
 puts "#{Topic.count} topics created"
 puts "#{Post.count} post created"
 puts "#{Comment.count} comments created"
