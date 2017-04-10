@@ -1,8 +1,9 @@
 class User < ActiveRecord::Base
   has_many :posts
-  
+
   #registers an inline callback directly after the before_save
   before_save{self.email = email.downcase if email.present?}
+  before_save{self.role ||= :member}
   before_save :format_name
 
   #uses Ruby's validates function to ensure that name is presen
@@ -17,6 +18,8 @@ class User < ActiveRecord::Base
 
   #uses Ruby's has_secure_password to add methods
   has_secure_password
+
+  enum role: [:member, :admin]
 
   def format_name
     if name

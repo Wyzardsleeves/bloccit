@@ -32,7 +32,47 @@ RSpec.describe User, type: :model do
       user.save
       expect(user.name).to eq "Bloc User"
     end
+    #expects that users will respond to role
+    it "responds to role" do
+      expect(user).to respond_to(:role)
+    end
+    #expects users will respond to admin? which will return whether or not a user is an admin
+    it "responds to admin?" do
+      expect(user).to respond_to(:admin?)
+    end
+    #expects users will respond to member? which will return whether or not a user is a member
+    it "responds to admin?" do
+      expect(user).to respond_to(:member?)
+    end
   end #describe "attributes"
+
+  describe "roles" do
+    #expects that users will be assigned the role of memeber by default
+    it "is member default" do
+      expect(user.role).to eql("member")
+    end
+    #test member and admin users within separate contexts
+    context "member user" do
+      it "returns true #member?" do
+        expect(user.member?).to be_truthy
+      end
+      it "returns false for #admin?" do
+        expect(user.admin?).to be_falsey
+      end
+    end #context "member user"
+    #test member and admin users within separate contexts
+    context "admin user" do
+      before do
+        user.admin!
+      end
+      it "returns true #member?" do
+        expect(user.member?).to be_falsey
+      end
+      it "returns false for #admin?" do
+        expect(user.admin?).to be_truthy
+      end
+    end #context "admin user"
+  end #describe "roles"
 
   describe "invalid user" do
     let(:user_with_invalid_name){User.new(name: "", email: "user@bloccit.com")}
