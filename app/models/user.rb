@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   #uses Ruby's has_secure_password to add methods
   has_secure_password
 
-  enum role: [:member, :admin]
+  enum role: [:member, :moderator, :admin]
 
   def format_name
     if name
@@ -30,4 +30,4 @@ class User < ActiveRecord::Base
       self.name = name_array.join(" ")
     end
   end #def format_name
-end
+end #class User < ActiveRecord::Base

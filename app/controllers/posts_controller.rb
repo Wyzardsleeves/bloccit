@@ -3,6 +3,7 @@ class PostsController < ApplicationController
   before_action :require_sign_in, except: :show
   #uses a second before_action filter to check the role of a signed-in user.
   before_action :authorize_user, except: [:show, :new, :create]
+  before_action :authorized_to_delete, only: :destroy
 
   def show
     @post = Post.find(params[:id])
@@ -69,9 +70,19 @@ class PostsController < ApplicationController
   def authorize_user
     post = Post.find(params[:id])
     #we redirects the user unless they own the post they're attempting to modify
-    unless current_user == post.user || current_user.admin?
+    #unless current_user == post.user || current_user.admin?  old one
+    unless current_user == post.user || current_user.admin? || current_user.moderator?
       flash[:alert] = "You must be an admin to do that."
       redirect_to [post.topic, post]
     end
   end #def authorize_user
+  #assignment-28
+  def authorized_to_delete
+    post = Post.find(params[:id])
+    unless current_user == post.user || current_user.admin?
+      flash[:alert] = "You must be an admin to do that."
+      redirect_to [post.topic, post]
+    end
+  end
+  #end of assignment-28
 end #class PostsController < ApplicationController

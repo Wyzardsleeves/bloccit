@@ -1,8 +1,8 @@
 class TopicsController < ApplicationController
-  #uses the before_action filter and the require_sign_in method from Application Controller to redirect guest
   before_action :require_sign_in, except: [:index, :show]
-  #uses another before_action filter and the require_sign_in method from ApplicationController to redirect guest
-  before_action :authorize_user, except: [:index, :show]
+  #before_action :authorize_user, except: [:index, :show] old version
+  before_action :authorize_user, except: [:index, :show, :create]
+
 
   def index
     @topics = Topic.all
@@ -62,7 +62,7 @@ class TopicsController < ApplicationController
   end
 
   def destroy
-    @topic =Topic.find(params[:id])
+    @topic = Topic.find(params[:id])
 
     if @topic.destroy
       flash[:notice] = "\"#{@topic.name}\" was deleted successfully."
@@ -79,8 +79,8 @@ class TopicsController < ApplicationController
   end
   #defines authorize_user which is used above to redirect non-admin users to topics_path
   def authorize_user
-    unless current_user.admin?
-      flash[:alert] = "You must be an admin to do that."
+    unless current_user.admin? || current_user.moderator?
+      flash[:alert] = "You must be an admin or mod to do that."
       redirect_to topics_path
     end
   end #def authorize_user

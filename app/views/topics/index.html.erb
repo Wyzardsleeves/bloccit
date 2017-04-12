@@ -20,7 +20,9 @@
   <% if user_is_authorized_for_topics? %>
     <div class="col-md-4">
       <!-- creates a link the create a new topic -->
-      <%= link_to "New Topic", new_topic_path, class: 'btn btn-success' %>
+      <% unless current_user.moderator? %>
+        <%= link_to "New Topic", new_topic_path, class: 'btn btn-success' %>
+      <% end %>
     </div>
   <% end %>
 </div>
