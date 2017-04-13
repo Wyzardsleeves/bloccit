@@ -7,6 +7,12 @@ Rails.application.routes.draw do
     resources :sponsored_posts, except: [:index]
   end
 
+  #uses only:[] because it doen't want to create any /osts/:id routes
+  resources :posts, only: [] do
+    #only adds create and destroy routes for comments
+    resources :comments, only: [:create, :destroy]    
+  end
+
   resources :users, only: [:new, :create]
   resources :sessions, only: [:new, :create, :destroy]
 

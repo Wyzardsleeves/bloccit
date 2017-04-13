@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :posts
+  has_many :comments
 
   #registers an inline callback directly after the before_save
   before_save{self.email = email.downcase if email.present?}
@@ -30,4 +31,4 @@ class User < ActiveRecord::Base
       self.name = name_array.join(" ")
     end
   end #def format_name
-end #class User < ActiveRecord::Base
+end

@@ -42,6 +42,7 @@ posts = Post.all
 #calls times on an Integer
 100.times do
   Comment.create!(
+    user: users.sample,
     post: posts.sample,
     body: RandomData.random_paragraph
   )
@@ -83,7 +84,7 @@ admin = User.create!(
 #create a moderator
 moderator = User.create!(
   name:     'Mod User',
-  email:    'moderator@examle.com'
+  email:    'moderator@examle.com',
   password: 'helloworld',
   role:     'moderator'
 )
