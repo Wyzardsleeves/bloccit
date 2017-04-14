@@ -29,14 +29,19 @@ topics = Topic.all
 
 50.times do
   # creates new Post.
-  Post.create!(
+  post = Post.create!(
     user: users.sample,
     # usees methods from teh class that doesn't exist yet
     topic: topics.sample,
     title: RandomData.random_sentence,
     body: RandomData.random_paragraph
   )
+  post.update_attribute(:created_at, rand(10.minutes .. 1.year).ago)
+  rand(1..5).times{post.votes.create!(value: [-1, 1].sample, user: users.sample)}
+
 end #Create post (50.times)
+
+
 posts = Post.all
 
 #calls times on an Integer
@@ -101,5 +106,6 @@ puts "#{User.count} users created"
 puts "#{Topic.count} topics created"
 puts "#{Post.count} post created"
 puts "#{Comment.count} comments created"
+puts "#{Vote.count} votes created"
 puts "#{SponsoredPost.count} sponsored post created"
 #puts "#{Question.count} questions created"
