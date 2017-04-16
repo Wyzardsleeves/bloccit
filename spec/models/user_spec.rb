@@ -5,7 +5,8 @@ RSpec.describe User, type: :model do
 
   it{is_expected.to have_many(:posts)}
   it{is_expected.to have_many(:comments)}
-  it{is_expected.to have_many(:votes)}  #checkpoint-30
+  it{is_expected.to have_many(:votes)}
+  it{is_expected.to have_many(:favorites)}
 
   #test for name
   it{is_expected.to validate_presence_of(:name)}
@@ -86,6 +87,19 @@ RSpec.describe User, type: :model do
     it "should be an invalid user due to blank email" do
       expect(user_with_invalid_email).to_not be_valid
     end
-  end
+  end #describe "invalid user"
 
+  describe "#favorite_for(post)" do
+    before do
+      topic = Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph)
+      @post = topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user)
+    end
+    it "returns 'nil' if the user has not favorieted the post" do
+      expect(user.favorite_for(@post)).to be_nil
+    end
+    it "returns the appropriate favorite if it exist" do
+      favorite = user.favorites.where(post: @post).create
+      expect(user.favorite_for(@post)).to eq(favorite)
+    end
+  end #describe "#favorite_for(post)"
 end #RSpec.describe User

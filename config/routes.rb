@@ -11,9 +11,10 @@ Rails.application.routes.draw do
   resources :posts, only: [] do
     #only adds create and destroy routes for comments
     resources :comments, only: [:create, :destroy]
+    resources :favorites, only: [:create, :destroy]
 
     post '/up-vote' => 'votes#up_vote', as: :up_vote
-    post '/down-vote' => 'votes#down_vote', as: :down_vote 
+    post '/down-vote' => 'votes#down_vote', as: :down_vote
   end
 
   resources :users, only: [:new, :create]
