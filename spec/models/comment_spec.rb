@@ -1,14 +1,15 @@
 require 'rails_helper'
+include RandomData
 
-RSpec.describe Comment do
-  let(:topic){Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph)}
-  let(:user){User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld")}
-  let(:post){topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user)}
-  let(:comment){Comment.create!(body: 'Comment Body', post: post, user: user)}
+RSpec.describe Comment, type: :model do
+  let(:topic){create(:topic)}
+  let(:user){create(:user)}
+  let(:post){create(:post)}
+  #let(:comment){Comment.create!(body: 'Comment Body', post: post, user: user)}
+  let(:comment){create(:comment)}
 
   it{is_expected.to belong_to(:post)}
   it{is_expected.to belong_to(:user)}
-
   it{is_expected.to validate_presence_of(:body)}
   it{is_expected.to validate_length_of(:body).is_at_least(5)}
 

@@ -1,10 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe Topic, type: :model do
+  let(:public){true}  #ask Jason about this
+
+=begin
   let(:name){RandomData.random_sentence}
   let(:description){RandomData.random_paragraph}
-  let(:public){true}  #ask Jason about this
   let(:topic){Topic.create!(name: name, description: description)}
+=end
+
+  let(:topic) { create(:topic) }
 
   it{should have_many(:posts)}
   it{should validate_length_of(:name).is_at_least(5)}
@@ -15,7 +20,7 @@ RSpec.describe Topic, type: :model do
   # confirms that a topic responds to the appropriate attribute
   describe "attributes" do
     it "has name, description, and public attributes" do
-      expect(topic).to have_attributes(name: name, description: description, public: public)
+      expect(topic).to have_attributes(name: topic.name, description: topic.description, public: public)
     end
     it "should respond to description" do
       expect(topic).to respond_to(:description)

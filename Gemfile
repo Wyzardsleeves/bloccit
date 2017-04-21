@@ -16,7 +16,7 @@ end
 =end
 # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'
-
+gem 'figaro','1.0'
 # Use Bootstrap gem
 gem 'bootstrap-sass'
 # Use SCSS for stylesheets
@@ -51,6 +51,7 @@ group :development, :test do
   gem 'byebug'
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda'
+  gem 'factory_girl_rails', '~> 4.0'
 end
 
 group :development do

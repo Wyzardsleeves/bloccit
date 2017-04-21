@@ -1,6 +1,7 @@
 require 'rails_helper'
+include RandomData
 
-RSpec.describe SponsoredPostController, type: :controller do
+RSpec.describe SponsoredPostsController, type: :controller do
 
   describe "GET #show" do
     it "returns http success" do

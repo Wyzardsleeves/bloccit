@@ -1,4 +1,5 @@
 require 'rails_helper'
+include RandomData
 
 RSpec.describe SponsoredPost, type: :model do
   let(:name){RandomData.random_sentence}
